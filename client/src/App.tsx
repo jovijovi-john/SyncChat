@@ -4,7 +4,7 @@ import Chat from "./pages/Chat";
 import io from "socket.io-client";
 
 import "./index.css";
-import MessageForm from "./MessageForm";
+import MessageForm from "./components/MessageForm";
 import { Input, Button } from "@chakra-ui/react";
 
 export const socketClient = io(`ws://localhost:3001`, {
@@ -12,32 +12,17 @@ export const socketClient = io(`ws://localhost:3001`, {
 });
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const cleanMessage: string = message.trim();
-
-    if (cleanMessage.length != 0) {
-      const messageObj = {
-        content: cleanMessage,
-      };
-
-      socketClient.emit("message", messageObj);
-
-      setMessage("");
-    }
-  };
-
   return (
-    <div className="bg-neutral-900 w-full p-8">
-      <MessageForm
-        message={message}
-        setMessage={setMessage}
-        sendMessage={sendMessage}
-      />
-      <Chat />
+    <div className=" h-screen w-full">
+      <div className="flex w-full h-screen">
+        <aside className="h-full overflow-y-scroll shadow-lg border-r-2 border-zinc-700 bg-zinc-900 w-96 text-black">
+          Aside
+        </aside>
+        <Chat className="flex-1 h-full py-4 flex justify-between flex-col bg-zinc-800 relative" />
+        <aside className="h-full overflow-y-scroll shadow-lg border-l-2 border-zinc-700 bg-zinc-900 w-96 text-black">
+          Aside
+        </aside>
+      </div>
     </div>
   );
 }

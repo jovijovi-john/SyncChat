@@ -13,3 +13,16 @@
     @apply bg-neutral-900;
   }
 }
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50%;
+}
+
+@layer components {
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-500;
+    /* @apply bg-blue-800; */
+  }
+}
