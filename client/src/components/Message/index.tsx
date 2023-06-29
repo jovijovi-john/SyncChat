@@ -1,9 +1,11 @@
+import React from "react";
+
 import { Avatar, AvatarBadge, Stack } from "@chakra-ui/react";
 import { MessageType } from "../../types/Message";
-import "./styles.css";
-import React from "react";
 import { MessageContent } from "../MessageContent";
 import { MessageTypeResponse } from "../../types/MessageResponse";
+
+import "./styles.css";
 
 interface MessageProps {
   message: MessageTypeResponse;

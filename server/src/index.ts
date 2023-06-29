@@ -47,14 +47,16 @@ io.on("connection", async (socket) => {
 
   const sockets = (await io.fetchSockets()).map((socket) => socket.id);
 
+  socket.broadcast.emit("new_connection", socket.id);
+
   socket.on("select_room", (data) => {
     // Ao entrar na sala, deve-se informar ao usuário todos que estão online ali
 
     console.log("CHEGOU A MENSAGEM");
     console.log(sockets);
 
-    //
-    io.to(socket.id).emit("send_status_users", sockets);
+    //Enviando lista de usuários online assim que o usuário entrar
+    io.to(socket.id).emit("initial_users_online", sockets);
   });
 
   socket.on("message", (data: MessageType) => {
