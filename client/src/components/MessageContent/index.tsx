@@ -1,7 +1,7 @@
-import { MessageType } from "../../types/Message";
+import { MessageTypeResponse } from "../../types/MessageResponse";
 
 type MessageContentProps = {
-  message: MessageType;
+  message: MessageTypeResponse;
 };
 
 export function MessageContent({ message }: MessageContentProps) {

@@ -1,4 +1,4 @@
 export type MessageType = {
-  file: string | null;
+  file?: string;
   content: string;
 };

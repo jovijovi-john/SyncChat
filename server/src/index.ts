@@ -4,6 +4,8 @@ import http from "node:http";
 import cors from "cors";
 
 import moment from "moment-timezone";
+import { MessageType } from "./types/MessageType";
+import { MessageResponseType } from "./types/MessageResponse";
 
 const app = express();
 app.use(cors());
@@ -38,19 +40,23 @@ function formatTime(date: Date) {
   }
 }
 
-
+let messages: MessageResponseType[] = [];
 
 io.on("connection", (socket) => {
   console.log(`user connected: ${socket.id}`);
 
-  socket.on("message", (data) => {
+  socket.on("message", (data: MessageType) => {
     console.log(data);
+
     const date = new Date();
-    const messageResponse = {
-      ...data,
+
+    const messageResponse: MessageResponseType = {
+      content: data.content,
       date: formatTime(date),
     };
+
     io.emit("message-response", messageResponse);
+    messages.push(messageResponse);
   });
 });
 

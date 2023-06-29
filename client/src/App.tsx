@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Chat from "./pages/Chat";
 
-import io from "socket.io-client";
-
 import "./index.css";
 import MessageForm from "./components/MessageForm";
 import { Input, Button } from "@chakra-ui/react";
@@ -11,9 +9,7 @@ import "./styles.css";
 import { RoomStatus } from "./components/RoomStatus";
 import { SidebarConversations } from "./components/SideBarConversations";
 
-export const socketClient = io(`ws://localhost:3001`, {
-  transports: ["websocket"],
-});
+import { socketClient } from "./services/socket";
 
 function App() {
   return (

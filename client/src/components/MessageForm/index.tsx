@@ -1,6 +1,4 @@
-import { Input } from "@chakra-ui/react";
-
-import { socketClient } from "../../App";
+import { socketClient } from "../../services/socket";
 import { useState, useRef, useEffect } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import { GoPaperclip } from "react-icons/go";

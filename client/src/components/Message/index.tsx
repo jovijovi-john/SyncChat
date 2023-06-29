@@ -3,9 +3,10 @@ import { MessageType } from "../../types/Message";
 import "./styles.css";
 import React from "react";
 import { MessageContent } from "../MessageContent";
+import { MessageTypeResponse } from "../../types/MessageResponse";
 
 interface MessageProps {
-  message: MessageType;
+  message: MessageTypeResponse;
 }
 
 export const Message = React.memo(({ message }: MessageProps) => {

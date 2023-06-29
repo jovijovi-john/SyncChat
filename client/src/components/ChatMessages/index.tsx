@@ -1,16 +1,16 @@
 import { Message } from "../../components/Message";
 
-import { socketClient } from "../../App";
+import { socketClient } from "../../services/socket";
 import { useEffect, useState } from "react";
-import { MessageType } from "../../types/Message";
+import { MessageTypeResponse } from "../../types/MessageResponse";
 
 import "./styles.css";
 
 export function ChatMessages() {
-  const [messages, setMessages] = useState<MessageType[]>([]);
+  const [messages, setMessages] = useState<MessageTypeResponse[]>([]);
 
   useEffect(() => {
-    socketClient.on("message-response", (data: MessageType) => {
+    socketClient.on("message-response", (data: MessageTypeResponse) => {
       console.log("Recebi uma mensagem: " + data.content);
       setMessages((messages) => [...messages, data]);
     });
@@ -22,7 +22,7 @@ export function ChatMessages() {
 
   return (
     <div className="chatMessages overflow-y-scroll h-full max-w-screen-2xl">
-      {messages.map((message: MessageType, index: number) => (
+      {messages.map((message: MessageTypeResponse, index: number) => (
         <Message key={index} message={message} />
       ))}
     </div>
