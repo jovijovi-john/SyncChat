@@ -42,8 +42,20 @@ function formatTime(date: Date) {
 
 let messages: MessageResponseType[] = [];
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   console.log(`user connected: ${socket.id}`);
+
+  const sockets = (await io.fetchSockets()).map((socket) => socket.id);
+
+  socket.on("select_room", (data) => {
+    // Ao entrar na sala, deve-se informar ao usuário todos que estão online ali
+
+    console.log("CHEGOU A MENSAGEM");
+    console.log(sockets);
+
+    //
+    io.to(socket.id).emit("send_status_users", sockets);
+  });
 
   socket.on("message", (data: MessageType) => {
     console.log(data);
@@ -59,6 +71,7 @@ io.on("connection", (socket) => {
     // Antes de emitir a mensagem, deve salvá-la no banco de dados. Quando isso acontecer, ai devolve a mensagem para todos
     io.emit("message-response", messageResponse);
     messages.push(messageResponse);
+    console.log("MENSAGENS DA SALA: " + messages);
   });
 
   socket.on("disconnect", () => {
