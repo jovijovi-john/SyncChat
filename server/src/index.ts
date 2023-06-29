@@ -50,13 +50,19 @@ io.on("connection", (socket) => {
 
     const date = new Date();
 
+    // Adicionando à mensagem a informação de quando ela foi enviada
     const messageResponse: MessageResponseType = {
       content: data.content,
       date: formatTime(date),
     };
 
+    // Antes de emitir a mensagem, deve salvá-la no banco de dados. Quando isso acontecer, ai devolve a mensagem para todos
     io.emit("message-response", messageResponse);
     messages.push(messageResponse);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`user disconnected: ${socket.id}`);
   });
 });
 
