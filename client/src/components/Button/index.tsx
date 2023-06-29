@@ -3,6 +3,7 @@ interface ButtonType {
   onClick?: () => void;
   children: React.ReactNode;
   classNames?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 const Button: React.FC<ButtonType> = ({
@@ -10,9 +11,10 @@ const Button: React.FC<ButtonType> = ({
   onClick,
   classNames,
   color,
+  type,
 }) => {
   return (
-    <button onClick={onClick} className={`${classNames}`}>
+    <button type={type} onClick={onClick} className={`${classNames}`}>
       {children}
     </button>
   );

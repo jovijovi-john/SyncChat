@@ -2,3 +2,7 @@
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
+
+.message-box:hover {
+  background-color: rgba(45, 45, 45, 1);
+}

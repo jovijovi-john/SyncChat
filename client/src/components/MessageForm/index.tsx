@@ -27,6 +27,20 @@ export default function MessageForm(
     }
   };
 
+  const sendMessage = () => {
+    const cleanMessage: string = message.trim();
+
+    if (cleanMessage.length != 0) {
+      const messageObj = {
+        content: cleanMessage,
+      };
+
+      socketClient.emit("message", messageObj);
+
+      setMessage("");
+    }
+  };
+
   const handleInput = () => {
     if (messageRef.current) {
       // se a div já foi renderizada, ou seja, se já existe
@@ -41,18 +55,14 @@ export default function MessageForm(
       event.preventDefault(); // evitando a quebra de linha
       formRef.current?.dispatchEvent(new Event("submit", { cancelable: true })); // Para tirar o prevent default
 
-      const cleanMessage: string = message.trim();
-
-      if (cleanMessage.length != 0) {
-        const messageObj = {
-          content: cleanMessage,
-        };
-
-        socketClient.emit("message", messageObj);
-
-        setMessage("");
-      }
+      sendMessage();
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    sendMessage();
   };
 
   useEffect(() => {
@@ -66,7 +76,7 @@ export default function MessageForm(
   }, [message]);
 
   return (
-    <form {...props}>
+    <form {...props} onSubmit={handleSubmit}>
       <Button classNames="flex  justify-center items-center p-2 w-10 max-w-xl">
         <BsEmojiSmile color="#F4F4F5" size={25} />
       </Button>
@@ -85,7 +95,10 @@ export default function MessageForm(
         />
       </div>
 
-      <Button classNames="flex  justify-center items-center p-2 w-16 max-w-xl">
+      <Button
+        type={"submit"}
+        classNames="flex justify-center items-center p-2 w-16 max-w-xl"
+      >
         <AiOutlineSend color="#F4F4F5" size={25} />
       </Button>
     </form>
