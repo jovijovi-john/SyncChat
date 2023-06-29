@@ -1,85 +1,92 @@
 import { Input } from "@chakra-ui/react";
 
 import { socketClient } from "../../App";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import { GoPaperclip } from "react-icons/go";
 import { BsEmojiSmile } from "react-icons/bs";
 
 import "./styles.css";
 import Button from "../Button";
-
-// type MessageFormProps = {
-//   message: string;
-//   setMessage: React.Dispatch<React.SetStateAction<string>>;
-//   sendMessage: (e: React.FormEvent<HTMLFormElement>) => void;
-// };
+import InputMessage from "../InputMessage";
 
 export default function MessageForm(
   props: React.FormHTMLAttributes<HTMLFormElement>
 ) {
-  const [message, setMessage] = useState("");
-  const [viewSendButton, setViewSendButton] = useState(false);
+  const [message, setMessage] = useState<string>("");
 
-  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const messageRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-    const cleanMessage: string = message.trim();
+  const handleDivContent = (newContent: string) => {
+    // Garantindo que as mensagens não estejam vazias
+    const cleanContent = newContent.trim();
 
-    if (cleanMessage.length != 0) {
-      const messageObj = {
-        content: cleanMessage,
-      };
-
-      socketClient.emit("message", messageObj);
-
-      setMessage("");
+    if (cleanContent !== "") {
+      setMessage(cleanContent);
     }
   };
 
-  const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const inputValue = e.target.value.trim();
+  const handleInput = () => {
+    if (messageRef.current) {
+      // se a div já foi renderizada, ou seja, se já existe
+      const newContent = messageRef.current.textContent || "";
 
-    if (inputValue !== "") {
-      setViewSendButton(true);
+      newContent && handleDivContent(newContent);
     }
-
-    setMessage(inputValue);
   };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault(); // evitando a quebra de linha
+      formRef.current?.dispatchEvent(new Event("submit", { cancelable: true })); // Para tirar o prevent default
+
+      const cleanMessage: string = message.trim();
+
+      if (cleanMessage.length != 0) {
+        const messageObj = {
+          content: cleanMessage,
+        };
+
+        socketClient.emit("message", messageObj);
+
+        setMessage("");
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Esse useEffect vai escutar cada modificação em content
+    // A principio nao precisaria, mas como eu quero deixar o 'input' vazio depois de dar o entenr
+    // Vai ser necessário fazer isso para limpar o input.
+    if (messageRef.current) {
+      // se a div já foi renderizada, ou seja, se já existe
+      messageRef.current.textContent = message;
+    }
+  }, [message]);
 
   return (
-    <form {...props} noValidate onSubmit={(e) => sendMessage(e)}>
-      {/* <Input
-        type="text"
-        placeholder="Type a message..."
-        onChange={(e) => {
-          handleChangeText(e);
-        }}
-        value={message}
-        className="text-white bg-zinc-700 w-full break-all h-full break-words"
-      /> */}
-
+    <form {...props}>
       <Button classNames="flex  justify-center items-center p-2 w-10 max-w-xl">
-        <div className="flex items-center justify-center ">
-          <BsEmojiSmile color="#F4F4F5" size={25} />
-        </div>
+        <BsEmojiSmile color="#F4F4F5" size={25} />
       </Button>
 
-      <Button classNames="flex  justify-center items-center p-2 w-10 max-w-xl">
-        <div className="flex items-center justify-center">
-          <GoPaperclip color="#F4F4F5" size={25} />
-        </div>
+      <Button classNames="flex justify-center items-center p-2 w-10 max-w-xl">
+        <GoPaperclip color="#F4F4F5" size={25} />
       </Button>
 
-      <div
-        contentEditable
-        className="w-full max-w-7xl text-zinc-100 breakWord h-full overflow-y-scroll max-h-56 bg-zinc-700 outline-none rounded-md p-3"
-      ></div>
+      <div className="w-full 2xl:max-w-4xl flex-1 p-3 bg-zinc-700 rounded-md">
+        <div
+          className="w-full 2xl:max-w-4xl flex-1 text-zinc-100 breakWord h-full overflow-y-scroll max-h-56  outline-none "
+          contentEditable
+          onInput={handleInput}
+          onKeyDown={handleKeyDown}
+          ref={messageRef}
+        />
+      </div>
 
       <Button classNames="flex  justify-center items-center p-2 w-16 max-w-xl">
-        <div className="flex items-center justify-center ">
-          <AiOutlineSend color="#F4F4F5" size={25} />
-        </div>
+        <AiOutlineSend color="#F4F4F5" size={25} />
       </Button>
     </form>
   );
