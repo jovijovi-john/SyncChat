@@ -11,7 +11,7 @@ export default function Chat(props: React.HTMLAttributes<HTMLDivElement>) {
 
       <ChatMessages />
 
-      <MessageForm className="flex sticky z-10 bg-zinc-800 bottom-0 left-0 flex-1 gap-2 max-w-screen-2xl items-center justify-between pt-4 pb-4 px-8" />
+      <MessageForm className="flex sticky z-10 bottom-0 left-0 flex-1 gap-2 items-center justify-between pt-4 pb-4 px-8 " />
     </div>
   );
 }

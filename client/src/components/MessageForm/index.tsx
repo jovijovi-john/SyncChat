@@ -39,6 +39,14 @@ export default function MessageForm(
     }
   };
 
+  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    // TODO: Melhorar isso, essa função já está obsoleta
+    const plainText = e.clipboardData.getData("text/plain");
+    document.execCommand("insertHTML", false, plainText);
+  };
+
   const handleInput = () => {
     if (messageRef.current) {
       // se a div já foi renderizada, ou seja, se já existe
@@ -83,12 +91,13 @@ export default function MessageForm(
         <GoPaperclip color="#F4F4F5" size={25} />
       </Button>
 
-      <div className="w-full 2xl:max-w-4xl flex-1 p-3 bg-zinc-700 rounded-md">
+      <div className="w-full flex-1 overflow-hidden p-3 bg-zinc-700 rounded-md ">
         <div
-          className="w-full 2xl:max-w-4xl flex-1 text-zinc-100 breakWord h-full overflow-y-scroll max-h-56  outline-none "
+          className="w-full flex-1 text-zinc-100 breakWord h-full overflow-y-scroll max-h-56  outline-none "
           contentEditable
           onInput={handleInput}
           onKeyDown={handleKeyDown}
+          onPaste={handlePaste}
           ref={messageRef}
         />
       </div>
