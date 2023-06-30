@@ -17,8 +17,9 @@ export function RoomStatus() {
 
     socketClient.on("previous_state_room", (data) => {
       // console.log(data.sockets);
+      // console.log(data.messages);
+
       setUsers(data.sockets);
-      console.log(data.messages);
       setMessages(data.messages);
     });
 
