@@ -4,21 +4,26 @@ import { MessageTypeResponse } from "../../types/MessageResponse";
 import { Button } from "@chakra-ui/react";
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 
+import { useContext } from "react";
+import { RoomContext } from "../../contexts/RoomContext";
+
 import "./styles.css";
 
 export function RoomStatus() {
-  const [users, setUsers] = useState<any>();
+  const { users, setUsers, setMessages } = useContext(RoomContext);
 
   useEffect(() => {
     entrarNaSala();
 
     socketClient.on("previous_state_room", (data) => {
       setUsers(data.sockets);
+      setMessages((messages) => [...messages, data.messages]);
     });
 
     socketClient.on("new_connection", (data) => {
       console.log(`Nova conexão ${data}`);
-      setUsers((users: any) => [...users, data]);
+
+      setUsers((users) => [...users, data.sockets]);
     });
 
     return () => {

@@ -73,7 +73,9 @@ io.on("connection", async (socket) => {
     // Antes de emitir a mensagem, deve salvá-la no banco de dados. Quando isso acontecer, ai devolve a mensagem para todos
     io.emit("message-response", messageResponse);
     messages.push(messageResponse);
-    console.log("MENSAGENS DA SALA: " + messages);
+    console.log(messages.length);
+    console.log("MENSAGENS DA SALA: ");
+    messages.forEach((message) => console.log(message));
   });
 
   socket.on("disconnect", () => {

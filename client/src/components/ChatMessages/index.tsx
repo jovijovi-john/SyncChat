@@ -1,13 +1,14 @@
 import { Message } from "../../components/Message";
 
 import { socketClient } from "../../services/socket";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { MessageTypeResponse } from "../../types/MessageResponse";
 
 import "./styles.css";
+import { RoomContext } from "../../contexts/RoomContext";
 
 export function ChatMessages() {
-  const [messages, setMessages] = useState<MessageTypeResponse[]>([]);
+  const { messages, setMessages } = useContext(RoomContext);
 
   useEffect(() => {
     socketClient.on("message-response", (data: MessageTypeResponse) => {

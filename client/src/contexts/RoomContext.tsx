@@ -1,10 +1,11 @@
 import { useState, createContext, ReactNode } from "react";
+import { MessageTypeResponse } from "../types/MessageResponse";
 
 interface RoomContextProps {
-  users: [];
-  setUsers: React.Dispatch<React.SetStateAction<[]>>;
-  messages: [];
-  setMessages: React.Dispatch<React.SetStateAction<[]>>;
+  users: string[];
+  setUsers: React.Dispatch<React.SetStateAction<string[]>>;
+  messages: MessageTypeResponse[];
+  setMessages: React.Dispatch<React.SetStateAction<MessageTypeResponse[]>>;
 }
 
 export const RoomContext = createContext<RoomContextProps>(
@@ -16,8 +17,8 @@ interface UserProviderProps {
 }
 
 function RoomProvider({ children }: UserProviderProps) {
-  const [users, setUsers] = useState<[]>([]);
-  const [messages, setMessages] = useState<[]>([]);
+  const [users, setUsers] = useState<string[]>([]);
+  const [messages, setMessages] = useState<MessageTypeResponse[]>([]);
 
   return (
     <RoomContext.Provider value={{ users, setUsers, messages, setMessages }}>
