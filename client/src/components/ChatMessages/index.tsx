@@ -21,7 +21,7 @@ export function ChatMessages() {
   }, [socketClient]);
 
   useEffect(() => {
-    // Isso aqui é pra jogar o scroll pra baixo sempre que chegar uma nova mensagem
+    // Isso aqui é pra jogar o scroll pra baixo sempre que chegar uma nova mensagem / sempre que o array de mensagem for modificado
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
