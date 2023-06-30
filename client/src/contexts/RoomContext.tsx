@@ -1,29 +1,29 @@
 import { useState, createContext, ReactNode } from "react";
 
-interface UserContextProps {
+interface RoomContextProps {
   users: [];
   setUsers: React.Dispatch<React.SetStateAction<[]>>;
   messages: [];
   setMessages: React.Dispatch<React.SetStateAction<[]>>;
 }
 
-export const UserContext = createContext<UserContextProps>(
-  {} as UserContextProps
+export const RoomContext = createContext<RoomContextProps>(
+  {} as RoomContextProps
 );
 
 interface UserProviderProps {
   children: ReactNode;
 }
 
-function UserProvider({ children }: UserProviderProps) {
+function RoomProvider({ children }: UserProviderProps) {
   const [users, setUsers] = useState<[]>([]);
   const [messages, setMessages] = useState<[]>([]);
 
   return (
-    <UserContext.Provider value={{ users, setUsers, messages, setMessages }}>
+    <RoomContext.Provider value={{ users, setUsers, messages, setMessages }}>
       {children}
-    </UserContext.Provider>
+    </RoomContext.Provider>
   );
 }
 
-export default UserProvider;
+export default RoomProvider;

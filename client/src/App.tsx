@@ -4,8 +4,6 @@ import "./index.css";
 import MessageForm from "./components/MessageForm";
 import { Input, Button } from "@chakra-ui/react";
 
-import "./styles.css";
-
 import "./services/socket";
 import WebChat from "./pages/WebChat";
 

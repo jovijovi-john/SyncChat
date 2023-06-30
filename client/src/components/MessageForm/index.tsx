@@ -83,7 +83,7 @@ export default function MessageForm(
 
   return (
     <form {...props} onSubmit={handleSubmit}>
-      <Button classNames="flex  justify-center items-center p-2 w-10 max-w-xl">
+      <Button classNames="flex justify-center items-center p-2 w-10 max-w-xl">
         <BsEmojiSmile color="#F4F4F5" size={25} />
       </Button>
 
