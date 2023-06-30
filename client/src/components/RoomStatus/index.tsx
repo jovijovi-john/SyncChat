@@ -12,8 +12,8 @@ export function RoomStatus() {
   useEffect(() => {
     entrarNaSala();
 
-    socketClient.on("initial_users_online", (data) => {
-      setUsers(data);
+    socketClient.on("previous_state_room", (data) => {
+      setUsers(data.sockets);
     });
 
     socketClient.on("new_connection", (data) => {

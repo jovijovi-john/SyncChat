@@ -17,7 +17,11 @@ export const Message = React.memo(({ message }: MessageProps) => {
       <div className="image self-start">
         <Stack direction="row" className="hover:cursor-pointer" spacing={4}>
           <Avatar src={"https://github.com/andre-fil.png"} size={"sm"}>
-            <AvatarBadge boxSize="1.25em" bg="green.300" />
+            <AvatarBadge
+              boxSize="1.25em"
+              bg="green.300"
+              borderColor="#282828"
+            />
           </Avatar>
         </Stack>
       </div>

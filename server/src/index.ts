@@ -56,7 +56,7 @@ io.on("connection", async (socket) => {
     console.log(sockets);
 
     //Enviando lista de usuários online assim que o usuário entrar
-    io.to(socket.id).emit("initial_users_online", sockets);
+    io.to(socket.id).emit("previous_state_room", { sockets, messages });
   });
 
   socket.on("message", (data: MessageType) => {
