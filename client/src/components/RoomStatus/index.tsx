@@ -16,18 +16,19 @@ export function RoomStatus() {
     entrarNaSala();
 
     socketClient.on("previous_state_room", (data) => {
+      // console.log(data.sockets);
       setUsers(data.sockets);
-      setMessages((messages) => [...messages, data.messages]);
+      console.log(data.messages);
+      setMessages(data.messages);
     });
 
     socketClient.on("new_connection", (data) => {
       console.log(`Nova conexão ${data}`);
-
       setUsers((users) => [...users, data.sockets]);
     });
 
     return () => {
-      socketClient.off("initial_users_online");
+      socketClient.off("previous_state_room");
       socketClient.off("new_connection");
     };
   }, []);
