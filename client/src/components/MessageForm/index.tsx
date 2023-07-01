@@ -1,12 +1,11 @@
-import { socketClient } from "../../services/socket";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AiOutlineSend } from "react-icons/ai";
-import { GoPaperclip } from "react-icons/go";
 import { BsEmojiSmile } from "react-icons/bs";
-
-import "./styles.css";
+import { GoPaperclip } from "react-icons/go";
+import { socketClient } from "../../services/socket";
 import Button from "../Button";
 import InputMessage from "../InputMessage";
+import "./styles.css";
 
 export default function MessageForm(
   props: React.FormHTMLAttributes<HTMLFormElement>
@@ -18,11 +17,7 @@ export default function MessageForm(
 
   const handleDivContent = (newContent: string) => {
     // Garantindo que as mensagens não estejam vazias
-    const cleanContent = newContent.trim();
 
-    if (cleanContent !== "") {
-      setMessage(cleanContent);
-    }
   };
 
   const sendMessage = () => {
@@ -50,9 +45,10 @@ export default function MessageForm(
   const handleInput = () => {
     if (messageRef.current) {
       // se a div já foi renderizada, ou seja, se já existe
-      const newContent = messageRef.current.textContent || "";
-
-      newContent && handleDivContent(newContent);
+      if (messageRef.current) {
+        const newContent = messageRef.current.textContent || "";
+        setMessage(newContent);
+      }
     }
   };
 
@@ -62,6 +58,8 @@ export default function MessageForm(
       formRef.current?.dispatchEvent(new Event("submit", { cancelable: true })); // Para tirar o prevent default
 
       sendMessage();
+    } else if (event.key === "Backspace") {
+      event.stopPropagation();
     }
   };
 
