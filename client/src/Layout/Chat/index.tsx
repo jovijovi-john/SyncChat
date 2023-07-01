@@ -1,8 +1,7 @@
 import MessageForm from "../../components/MessageForm";
-
-import "./styles.css";
 import { HeaderChat } from "../../components/HeaderChat";
 import { ChatMessages } from "../../components/ChatMessages";
+import "./styles.css";
 
 export default function Chat(props: React.HTMLAttributes<HTMLDivElement>) {
   return (

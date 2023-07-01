@@ -14,7 +14,7 @@ export function HeaderChat() {
           SEXOOOOOOOOOO DE CAVALOS
         </span>
         <small className="text-zinc-400">
-          João Davi, André broxa, Pv Safado, Gabriel_Transa
+          João Davi, André broxa, Pv Safado, Gabriel_Transa, John
         </small>
       </div>
     </div>

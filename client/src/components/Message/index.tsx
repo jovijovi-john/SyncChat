@@ -1,8 +1,9 @@
 import React from "react";
 
 import { Avatar, AvatarBadge, Stack } from "@chakra-ui/react";
-import { MessageType } from "../../types/Message";
+
 import { MessageContent } from "../MessageContent";
+import { MessageType } from "../../types/Message";
 import { MessageTypeResponse } from "../../types/MessageResponse";
 
 import "./styles.css";
