@@ -1,7 +1,10 @@
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 
+import { useEffect } from "react";
+
 export function Conversations() {
   const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+
   return (
     <div className=" flex flex-col gap-2 overflow-y-scroll pl-3 py-2">
       {array.map((numero) => (

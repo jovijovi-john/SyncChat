@@ -37,7 +37,7 @@ export function RoomStatus() {
   }
 
   return (
-    <aside className="sticky top-0 right-0 h-full overflow-y-scroll  border-l-2 border-zinc-500 bg-zinc-700 pt-12 text-white flex flex-col">
+    <aside className="sticky top-0 right-0 h-full overflow-y-scroll  border-l border-zinc-600 bg-zinc-700 pt-12 text-white flex flex-col">
       <div className="users-online">
         <span className="uppercase ml-3 text-xs text-zinc-400 font-medium tracking-wide">
           online - {users?.length}
