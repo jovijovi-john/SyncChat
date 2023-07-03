@@ -15,7 +15,7 @@ export function HeaderConversations() {
             <small className="text-zinc-400 font-medium">Online</small>
           </div>
 
-          <span className="font-medium text-sm text-green-600">
+          <span className="font-medium text-sm text-emerald-600">
             Criar nova sala
           </span>
 
