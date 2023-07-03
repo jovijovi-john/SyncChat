@@ -1,22 +1,28 @@
 import { Avatar, AvatarBadge, Stack } from "@chakra-ui/react";
+import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
+import { useContext } from "react";
+import { RoomContext } from "../../contexts/RoomContext";
 
 import "./styles.css";
 
 export function HeaderChat() {
-  return (
-    <div className="headerRoom sticky z-20 w-full self-start flex flex-1  py-2">
-      <Stack direction="row" className="px-4 hover:cursor-pointer" spacing={4}>
-        <Avatar src={"https://github.com/joodavi.png"} size={"md"} />
-      </Stack>
+  const { avatar, users, roomName } = useContext(RoomContext);
 
+  function handleNameUsers() {
+    const userNames = users.map((user) => user);
+    return userNames.join(", ");
+  }
+
+  return (
+    <BoxAvatarLeftContentRight
+      avatar={avatar}
+      size={"md"}
+      classNameBox="headerRoom sticky z-20"
+    >
       <div className="flex flex-col">
-        <span className="font-bold text-zinc-200">
-          SEXOOOOOOOOOO DE CAVALOS
-        </span>
-        <small className="text-zinc-400">
-          João Davi, André broxa, Pv Safado, Gabriel_Transa, John
-        </small>
+        <span className="font-bold text-zinc-200">{roomName}</span>
+        <small className="text-zinc-400">{handleNameUsers()}</small>
       </div>
-    </div>
+    </BoxAvatarLeftContentRight>
   );
 }

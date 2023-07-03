@@ -1,11 +1,22 @@
 import MessageForm from "../../components/MessageForm";
 import { HeaderChat } from "../../components/HeaderChat";
 import { ChatMessages } from "../../components/ChatMessages";
+
+import { useContext, useEffect } from "react";
+import { RoomContext } from "../../contexts/RoomContext";
+
 import "./styles.css";
 
-export default function Chat(props: React.HTMLAttributes<HTMLDivElement>) {
+export default function Chat() {
+  const { avatar, setAvatar, setRoomName } = useContext(RoomContext);
+
+  useEffect(() => {
+    setAvatar("https://github.com/jovijovi-john.png");
+    setRoomName("Sexoo");
+  }, []);
+
   return (
-    <div {...props}>
+    <div className="flex-1 flex justify-between flex-col h-full bg-zinc-800 overflow-y-hidden relative ">
       <HeaderChat />
 
       <ChatMessages />
