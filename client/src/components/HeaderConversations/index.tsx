@@ -1,6 +1,9 @@
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 
+import { useDisclosure } from "@chakra-ui/react";
+
 import { IoIosAddCircleOutline } from "react-icons/io";
+import ModalCreateRoom from "../ModalCreateRoom";
 
 export function HeaderConversations() {
   return (
@@ -15,11 +18,8 @@ export function HeaderConversations() {
             <small className="text-zinc-400 font-medium">Online</small>
           </div>
 
-          <button className="font-medium text-sm text-[#e94f5c]">
-            Criar nova sala
-          </button>
 
-          {/* <IoIosAddCircleOutline size={45} color="#22aa55" /> */}
+          <ModalCreateRoom />
         </div>
       </BoxAvatarLeftContentRight>
     </div>

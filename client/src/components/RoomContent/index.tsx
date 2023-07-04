@@ -6,8 +6,16 @@ import ChatSvg from "../../assets/chat_svg.svg";
 import "./styles.css";
 
 export function RoomContent() {
-  const { avatar, roomName, roomContentVisible, setRoomContentVisible } =
-    useContext(RoomContext);
+  const {
+    avatar,
+    roomName,
+    roomContentVisible,
+    setRoomContentVisible,
+    setIdRoom,
+    setAvatar,
+    setUsers,
+    setMessages,
+  } = useContext(RoomContext);
 
   useEffect(() => {
     function handleEscKeyPress(event: KeyboardEvent) {
@@ -17,6 +25,11 @@ export function RoomContent() {
 
         if (roomContentVisible != false) {
           setRoomContentVisible(false);
+
+          setIdRoom("");
+          setAvatar("");
+          setUsers([]);
+          setMessages([]);
         }
       }
     }
