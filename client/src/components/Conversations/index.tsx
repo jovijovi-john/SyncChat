@@ -12,6 +12,7 @@ export function Conversations() {
     setUsers,
     avatar,
     setAvatar,
+    idRoom,
     setIdRoom,
     setRoomContentVisible,
   } = useContext(RoomContext);
@@ -40,7 +41,9 @@ export function Conversations() {
         <BoxAvatarLeftContentRight
           key={index}
           avatar={room.avatar}
-          classNamesAvatar="pl-3"
+          classNamesAvatar={`pl-3 ${
+            room.id === idRoom ? "border-l-2 border-[#e94f5c]" : ""
+          }`}
           cursor="pointer"
           onClick={() => handleClick(room)}
         >
