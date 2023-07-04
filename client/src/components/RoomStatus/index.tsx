@@ -10,31 +10,6 @@ import "./styles.css";
 export function RoomStatus() {
   const { users, setUsers, setMessages } = useContext(RoomContext);
 
-  useEffect(() => {
-    entrarNaSala();
-
-    socketClient.on("previous_state_room", (data) => {
-      // console.log(data.sockets);
-      // console.log(data.messages);
-
-      setUsers(data.sockets);
-      setMessages(data.messages);
-    });
-
-    socketClient.on("new_connection", (data) => {
-      console.log(`Nova conexão ${data}`);
-      setUsers((users) => [...users, data.sockets]);
-    });
-
-    return () => {
-      socketClient.off("previous_state_room");
-      socketClient.off("new_connection");
-    };
-  }, []);
-
-  function entrarNaSala() {
-    socketClient.emit("select_room", "qualquer ocoisa");
-  }
 
   return (
     <aside className="sticky top-0 right-0 h-full overflow-y-scroll  border-l border-zinc-600 bg-zinc-700 pt-12 text-white flex flex-col">

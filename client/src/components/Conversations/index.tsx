@@ -1,20 +1,51 @@
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 
-import { useEffect } from "react";
+import { useEffect, useState, useContext } from "react";
+import { RoomContext } from "../../contexts/RoomContext";
+import { socketClient } from "../../services/socket";
 
 export function Conversations() {
-  const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+  const {
+    roomName,
+    setRoomName,
+    users,
+    setUsers,
+    avatar,
+    setAvatar,
+    setIdRoom,
+    setRoomContentVisible,
+  } = useContext(RoomContext);
+  const [rooms, setRooms] = useState<[]>([]);
+
+  useEffect(() => {
+    // get rooms
+    fetch("http://localhost:3001/rooms")
+      .then((response) => response.json())
+      .then((data) => setRooms(data));
+  }, []);
+
+  function handleClick(room: any) {
+    setRoomName(room.roomName);
+    setAvatar(room.avatar);
+    setRoomContentVisible(true);
+    setIdRoom(room.id);
+
+    socketClient.emit("select_room", room.id);
+    console.log(room.id);
+  }
 
   return (
     <div className=" flex flex-col gap-2 overflow-y-scroll py-2">
-      {array.map((numero) => (
+      {rooms.map((room: any, index) => (
         <BoxAvatarLeftContentRight
-          key={numero}
-          avatar="https://github.com/andre-fil.png"
+          key={index}
+          avatar={room.avatar}
           classNamesAvatar="pl-3"
+          cursor="pointer"
+          onClick={() => handleClick(room)}
         >
           <div className="border-b border-zinc-700 pb-2 h-full flex flex-1 items-center justify-between mt-2">
-            <span className="text-sm text-white">Sala {numero}</span>
+            <span className="text-sm text-white">{room.roomName}</span>
             <span className="text-xs  text-zinc-300">Entrar na conversa</span>
           </div>
         </BoxAvatarLeftContentRight>

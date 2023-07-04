@@ -9,10 +9,12 @@ interface Props {
   size?: string;
   classNameBox?: string;
   classNamesAvatar?: string;
+  onClick?: (...args: any[]) => void;
 }
 export const BoxAvatarLeftContentRight = React.memo((props: Props) => {
   return (
     <div
+      onClick={props.onClick}
       className={`boxAvatarLeftContentRight  message-box flex items-center gap-x-3 px-4 py-2 last:mb-0 hover:transition hover:duration-150 hover:cursor-${props.cursor} ${props.classNameBox}`}
     >
       <div className={`image self-start ${props.classNamesAvatar}`}>

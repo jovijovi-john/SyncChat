@@ -15,9 +15,9 @@ export function HeaderConversations() {
             <small className="text-zinc-400 font-medium">Online</small>
           </div>
 
-          <span className="font-medium text-sm text-emerald-600">
+          <button className="font-medium text-sm text-[#e94f5c]">
             Criar nova sala
-          </span>
+          </button>
 
           {/* <IoIosAddCircleOutline size={45} color="#22aa55" /> */}
         </div>

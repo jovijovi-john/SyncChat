@@ -7,12 +7,17 @@ import { RoomContext } from "../../contexts/RoomContext";
 
 import "./styles.css";
 
-export default function Chat() {
-  const { avatar, setAvatar, setRoomName } = useContext(RoomContext);
+interface ChatProps {
+  avatar: string;
+  nameRoom: string;
+}
+
+export default function Chat({ avatar, nameRoom }: ChatProps) {
+  const { setAvatar, setRoomName, setIdRoom } = useContext(RoomContext);
 
   useEffect(() => {
-    setAvatar("https://github.com/jovijovi-john.png");
-    setRoomName("Sexoo");
+    setAvatar(avatar);
+    setRoomName(nameRoom);
   }, []);
 
   return (

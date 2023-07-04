@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import { BsEmojiSmile } from "react-icons/bs";
 import { GoPaperclip } from "react-icons/go";
@@ -6,18 +6,19 @@ import { socketClient } from "../../services/socket";
 import Button from "../Button";
 import InputMessage from "../InputMessage";
 import "./styles.css";
+import { RoomContext } from "../../contexts/RoomContext";
 
 export default function MessageForm(
   props: React.FormHTMLAttributes<HTMLFormElement>
 ) {
   const [message, setMessage] = useState<string>("");
+  const { idRoom, setIdRoom } = useContext(RoomContext);
 
   const messageRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleDivContent = (newContent: string) => {
     // Garantindo que as mensagens não estejam vazias
-
   };
 
   const sendMessage = () => {
@@ -26,6 +27,7 @@ export default function MessageForm(
     if (cleanMessage.length != 0) {
       const messageObj = {
         content: cleanMessage,
+        idRoom: idRoom,
       };
 
       socketClient.emit("message", messageObj);

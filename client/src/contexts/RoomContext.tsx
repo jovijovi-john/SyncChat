@@ -2,6 +2,8 @@ import { useState, createContext, ReactNode } from "react";
 import { MessageTypeResponse } from "../types/MessageResponse";
 
 interface RoomContextProps {
+  idRoom: string;
+  setIdRoom: React.Dispatch<React.SetStateAction<string>>;
   avatar: string;
   setAvatar: React.Dispatch<React.SetStateAction<string>>;
   users: string[];
@@ -10,6 +12,8 @@ interface RoomContextProps {
   setMessages: React.Dispatch<React.SetStateAction<MessageTypeResponse[]>>;
   roomName: string;
   setRoomName: React.Dispatch<React.SetStateAction<string>>;
+  roomContentVisible: boolean;
+  setRoomContentVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const RoomContext = createContext<RoomContextProps>(
@@ -22,13 +26,17 @@ interface UserProviderProps {
 
 function RoomProvider({ children }: UserProviderProps) {
   const [avatar, setAvatar] = useState<string>("");
+  const [idRoom, setIdRoom] = useState<string>("");
   const [roomName, setRoomName] = useState<string>("");
   const [users, setUsers] = useState<string[]>([]);
   const [messages, setMessages] = useState<MessageTypeResponse[]>([]);
+  const [roomContentVisible, setRoomContentVisible] = useState<boolean>(false);
 
   return (
     <RoomContext.Provider
       value={{
+        idRoom,
+        setIdRoom,
         avatar,
         setAvatar,
         users,
@@ -37,6 +45,8 @@ function RoomProvider({ children }: UserProviderProps) {
         setMessages,
         roomName,
         setRoomName,
+        roomContentVisible,
+        setRoomContentVisible,
       }}
     >
       {children}

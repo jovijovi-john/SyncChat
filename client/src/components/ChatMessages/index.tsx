@@ -7,11 +7,30 @@ import "./styles.css";
 
 export function ChatMessages() {
   const chatMessagesRef = useRef<HTMLDivElement | null>(null);
-  const { messages, setMessages } = useContext(RoomContext);
+  const { messages, setMessages, setUsers } = useContext(RoomContext);
+
+  useEffect(() => {
+    socketClient.on("previous_state_room", (data) => {
+      console.log(data.sockets);
+      console.log(data.messages);
+      setUsers(data.sockets);
+      setMessages(data.messages);
+    });
+
+    socketClient.on("new_connection", (data) => {
+      console.log(`Nova conexão ${data}`);
+      setUsers((users) => [...users, data.sockets]);
+    });
+
+    return () => {
+      socketClient.off("previous_state_room");
+      socketClient.off("new_connection");
+    };
+  }, []);
 
   useEffect(() => {
     socketClient.on("message-response", (data: MessageTypeResponse) => {
-      console.log("contando");
+      console.log(data);
       setMessages((prevMessages) => [...prevMessages, data]);
     });
 
