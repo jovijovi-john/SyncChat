@@ -19,12 +19,7 @@ app.use(express.json());
 app.use(router);
 
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "http:localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  },
-});
+const io = new Server(server);
 
 io.on("connection", async (socket) => {
   console.log(`user connected: ${socket.id}`);
