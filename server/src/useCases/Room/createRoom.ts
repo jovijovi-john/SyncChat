@@ -16,5 +16,5 @@ export function createRoom(req: Request, res: Response) {
 
   rooms.push(newRoom);
 
-  res.send("Flamengo");
+  res.send(newRoom);
 }

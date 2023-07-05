@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 
 import { RoomsContext } from "../../contexts/RoomsContext";
 
-async function getRooms() {
+export async function getRooms() {
   // get rooms
   return await fetch("http://localhost:3001/rooms");
 }
@@ -34,7 +34,7 @@ export function Conversations() {
   useEffect(() => {
     getRooms()
       .then((response) => response.json())
-      .then((data) => setRooms(data));
+      .then((data) => setRooms(data.reverse()));
   }, []);
 
   function handleClick(room: any) {

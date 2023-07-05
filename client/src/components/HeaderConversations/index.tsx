@@ -1,8 +1,5 @@
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 
-import { useDisclosure } from "@chakra-ui/react";
-
-import { IoIosAddCircleOutline } from "react-icons/io";
 import ModalCreateRoom from "../ModalCreateRoom";
 
 export function HeaderConversations() {
@@ -17,7 +14,6 @@ export function HeaderConversations() {
             <span className="font-medium text-zinc-200">John</span>
             <small className="text-zinc-400 font-medium">Online</small>
           </div>
-
 
           <ModalCreateRoom />
         </div>

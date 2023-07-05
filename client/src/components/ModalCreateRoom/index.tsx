@@ -11,10 +11,17 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+
 import { useRef, useState } from "react";
+import { RoomsContext } from "../../contexts/RoomsContext";
+
+import { getRooms } from "../Conversations";
 import Button from "../Button";
 
+import { useContext } from "react";
+
 export default function ModalCreateRoom() {
+  const { rooms, setRooms } = useContext(RoomsContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [roomName, setRoomName] = useState("");
@@ -34,7 +41,13 @@ export default function ModalCreateRoom() {
           roomName: roomName,
           avatar: avatar,
         }),
-      });
+      })
+        .then((data) => data.json())
+        .then((newRoom) => {
+          getRooms()
+            .then((data) => data.json())
+            .then((roomsFetched) => setRooms(roomsFetched.reverse()));
+        });
     }
 
     setRoomName("");
