@@ -32,7 +32,7 @@ export default function ModalCreateRoom() {
 
   function createRoom() {
     if (roomName.trim() !== "") {
-      fetch("http://localhost:3001/rooms", {
+      fetch("https://syncchatv2.onrender.com/rooms", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

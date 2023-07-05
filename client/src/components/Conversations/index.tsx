@@ -10,7 +10,7 @@ import { RoomsContext } from "../../contexts/RoomsContext";
 
 export async function getRooms() {
   // get rooms
-  return await fetch("http://localhost:3001/rooms");
+  return await fetch("https://syncchatv2.onrender.com/rooms");
 }
 export function Conversations() {
   const {
