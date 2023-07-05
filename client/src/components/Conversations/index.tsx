@@ -6,6 +6,8 @@ import { socketClient } from "../../services/socket";
 
 import { useQuery } from "react-query";
 
+import { RoomsContext } from "../../contexts/RoomsContext";
+
 async function getRooms() {
   // get rooms
   return await fetch("http://localhost:3001/rooms");
@@ -23,7 +25,9 @@ export function Conversations() {
     setRoomContentVisible,
   } = useContext(RoomContext);
 
-  const [rooms, setRooms] = useState<[]>([]);
+  // const [rooms, setRooms] = useState<[]>([]);
+
+  const { rooms, setRooms } = useContext(RoomsContext);
 
   // const { data,  } = useQuery(["users", rooms, getRooms]);
 
