@@ -10,7 +10,11 @@ export const RoomsContext = createContext<RoomsContextProps>(
   {} as RoomsContextProps
 );
 
-function RoomsProvider({ children }: { children: React.ReactNode }) {
+interface RoomProviderProps {
+  children: ReactNode;
+}
+
+function RoomsProvider({ children }: RoomProviderProps) {
   const [rooms, setRooms] = useState<RoomType[]>([]);
 
   return (
