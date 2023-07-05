@@ -20,11 +20,11 @@ export const RoomContext = createContext<RoomContextProps>(
   {} as RoomContextProps
 );
 
-interface UserProviderProps {
+interface RoomProviderProps {
   children: ReactNode;
 }
 
-function RoomProvider({ children }: UserProviderProps) {
+function RoomProvider({ children }: RoomProviderProps) {
   const [avatar, setAvatar] = useState<string>("");
   const [idRoom, setIdRoom] = useState<string>("");
   const [roomName, setRoomName] = useState<string>("");
