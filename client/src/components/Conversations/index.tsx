@@ -1,10 +1,10 @@
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { RoomContext } from "../../contexts/RoomContext";
 import { socketClient } from "../../services/socket";
 
-import { useQuery } from "react-query";
+// import { useQuery } from "react-query";
 
 import { RoomsContext } from "../../contexts/RoomsContext";
 
@@ -14,11 +14,7 @@ export async function getRooms() {
 }
 export function Conversations() {
   const {
-    roomName,
     setRoomName,
-    users,
-    setUsers,
-    avatar,
     setAvatar,
     idRoom,
     setIdRoom,

@@ -10,7 +10,6 @@ const Button: React.FC<ButtonType> = ({
   children,
   onClick,
   classNames,
-  color,
   type,
 }) => {
   return (

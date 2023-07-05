@@ -4,7 +4,6 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { GoPaperclip } from "react-icons/go";
 import { socketClient } from "../../services/socket";
 import Button from "../Button";
-import InputMessage from "../InputMessage";
 import "./styles.css";
 import { RoomContext } from "../../contexts/RoomContext";
 
@@ -12,14 +11,10 @@ export default function MessageForm(
   props: React.FormHTMLAttributes<HTMLFormElement>
 ) {
   const [message, setMessage] = useState<string>("");
-  const { idRoom, setIdRoom } = useContext(RoomContext);
+  const { idRoom } = useContext(RoomContext);
 
   const messageRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-
-  const handleDivContent = (newContent: string) => {
-    // Garantindo que as mensagens não estejam vazias
-  };
 
   const sendMessage = () => {
     const cleanMessage: string = message.trim();

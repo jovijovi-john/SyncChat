@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { MessageTypeResponse } from "../../types/MessageResponse";
 import { RoomContext } from "../../contexts/RoomContext";
 import { Message } from "../../components/Message";

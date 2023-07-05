@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MessageTypeResponse } from "../../types/MessageResponse";
 
 type MessageContentProps = {
@@ -6,8 +6,6 @@ type MessageContentProps = {
 };
 
 export function MessageContent({ message }: MessageContentProps) {
-  const [color, setColor] = useState<string>();
-  const [color_class, setColorClass] = useState<string>();
   const colors_array = {
     red: "#ef4444",
     orange: "#f97316",

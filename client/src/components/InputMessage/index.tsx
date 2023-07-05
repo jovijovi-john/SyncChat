@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface InputMessageType {
   content: string;

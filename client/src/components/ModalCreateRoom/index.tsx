@@ -21,7 +21,7 @@ import Button from "../Button";
 import { useContext } from "react";
 
 export default function ModalCreateRoom() {
-  const { rooms, setRooms } = useContext(RoomsContext);
+  const { setRooms } = useContext(RoomsContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [roomName, setRoomName] = useState("");
