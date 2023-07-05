@@ -11,14 +11,42 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Button from "../Button";
 
 export default function ModalCreateRoom() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const [roomName, setRoomName] = useState("");
+  const [avatar, setAvatar] = useState("");
+
   const initialRef = useRef(null);
   const finalRef = useRef(null);
+
+  function createRoom() {
+    if (roomName.trim() !== "") {
+      fetch("http://localhost:3001/rooms", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          roomName: roomName,
+          avatar: avatar,
+        }),
+      });
+    }
+
+    setRoomName("");
+    setAvatar("");
+
+    // Fechar modal
+    onClose();
+  }
+
+  function handleSubmit() {
+    createRoom(); // Chama a função createRoom() para enviar o formulário
+  }
 
   return (
     <>
@@ -40,13 +68,27 @@ export default function ModalCreateRoom() {
           </ModalHeader>
 
           <ModalBody pt={8} pb={6} className="bg-zinc-800">
-            <FormControl>
+            {/* Adiciona o onSubmit ao formulário */}
+            <FormControl onSubmit={handleSubmit}>
               <FormLabel className="text-zinc-300">Nome da sala</FormLabel>
               <Input
                 ref={initialRef}
                 placeholder="Nome da sala"
                 variant="unstyled"
                 pl={4}
+                mb={4}
+                value={roomName}
+                onChange={(e) => setRoomName(e.target.value)}
+                className={"border-2 border-[#393939] p-2"}
+                color={"#fff"}
+              />
+              <FormLabel className="text-zinc-300">Avatar</FormLabel>
+              <Input
+                placeholder="Avatar"
+                variant="unstyled"
+                pl={4}
+                value={avatar}
+                onChange={(e) => setAvatar(e.target.value)}
                 className={"border-2 border-[#393939] p-2"}
                 color={"#fff"}
               />
@@ -54,7 +96,11 @@ export default function ModalCreateRoom() {
           </ModalBody>
 
           <ModalFooter className="bg-zinc-800">
-            <Button classNames="bg-[#e94f5c] hover:opacity-90 rounded p-2 mr-2">
+            <Button
+              classNames="bg-[#e94f5c] hover:opacity-90 rounded p-2 mr-2"
+              type="submit"
+              onClick={createRoom}
+            >
               Save
             </Button>
             <Button

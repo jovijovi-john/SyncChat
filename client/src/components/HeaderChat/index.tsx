@@ -1,4 +1,3 @@
-import { Avatar, AvatarBadge, Stack } from "@chakra-ui/react";
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 import { useContext } from "react";
 import { RoomContext } from "../../contexts/RoomContext";

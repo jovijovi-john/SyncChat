@@ -4,6 +4,12 @@ import { useEffect, useState, useContext } from "react";
 import { RoomContext } from "../../contexts/RoomContext";
 import { socketClient } from "../../services/socket";
 
+import { useQuery } from "react-query";
+
+async function getRooms() {
+  // get rooms
+  return await fetch("http://localhost:3001/rooms");
+}
 export function Conversations() {
   const {
     roomName,
@@ -16,11 +22,13 @@ export function Conversations() {
     setIdRoom,
     setRoomContentVisible,
   } = useContext(RoomContext);
+
   const [rooms, setRooms] = useState<[]>([]);
 
+  // const { data,  } = useQuery(["users", rooms, getRooms]);
+
   useEffect(() => {
-    // get rooms
-    fetch("http://localhost:3001/rooms")
+    getRooms()
       .then((response) => response.json())
       .then((data) => setRooms(data));
   }, []);
