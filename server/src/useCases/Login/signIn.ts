@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 import { users } from "../../variables/users";
+import { generateToken } from "../../services/generateToken";
 
 export async function signIn(req: Request, res: Response) {
   const { userName, password } = req.body;
@@ -21,10 +21,8 @@ export async function signIn(req: Request, res: Response) {
       return res.status(401).json({ message: "Credenciais inválidas." });
     }
 
-    // Gerar um token de autenticação
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY!, {
-      expiresIn: "1h",
-    });
+    // Gerar o token de autenticação
+    const token = generateToken(user);
 
     res.status(200).json({ token });
   } catch (error) {

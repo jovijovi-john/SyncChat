@@ -51,9 +51,9 @@ export default function LoginForm() {
       })
         .then((data) => data.json())
         .then((data) => {
+          console.log(data);
           setUserName("");
           setPassword("");
-          console.log(data);
         });
     }
   }
