@@ -20,6 +20,8 @@ import Button from "../Button";
 
 import { useContext } from "react";
 
+import connection from "../../configs/connection";
+
 export default function ModalCreateRoom() {
   const { setRooms } = useContext(RoomsContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,7 +34,7 @@ export default function ModalCreateRoom() {
 
   function createRoom() {
     if (roomName.trim() !== "") {
-      fetch("https://syncchatv2.onrender.com/rooms", {
+      fetch(`http://localhost:3001/rooms`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,10 +100,10 @@ export default function ModalCreateRoom() {
               <FormLabel className="text-zinc-300">Avatar</FormLabel>
               <Input
                 placeholder="Avatar"
-                variant="unstyled"
                 pl={4}
                 value={avatar}
                 onChange={(e) => setAvatar(e.target.value)}
+                variant="unstyled"
                 className={"border-2 border-[#393939] p-2"}
                 color={"#fff"}
               />

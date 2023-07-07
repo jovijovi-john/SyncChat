@@ -1,6 +1,7 @@
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 import { useContext } from "react";
 import { RoomContext } from "../../contexts/RoomContext";
+
 import "./styles.css";
 
 export function RoomStatus() {

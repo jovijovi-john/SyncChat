@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { RoomContent } from "../../components/RoomContent";
 import { SidebarConversations } from "../../components/SideBarConversations";
 

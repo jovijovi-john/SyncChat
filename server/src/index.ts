@@ -1,9 +1,11 @@
-import { Server } from "socket.io";
-
 import express from "express";
-
 import http from "node:http";
 import cors from "cors";
+
+import { Server } from "socket.io";
+
+import dotenv from "dotenv";
+dotenv.config();
 
 import { MessageType } from "./types/MessageType";
 import { MessageResponseType } from "./types/MessageResponse";

@@ -1,31 +1,27 @@
-import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
-
 import { useEffect, useContext } from "react";
+
 import { RoomContext } from "../../contexts/RoomContext";
 import { socketClient } from "../../services/socket";
+import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 
 // import { useQuery } from "react-query";
 
 import { RoomsContext } from "../../contexts/RoomsContext";
+import connection from "../../configs/connection";
 
 export async function getRooms() {
   // get rooms
-  return await fetch("https://syncchatv2.onrender.com/rooms");
+  return await fetch(`${connection.url_api}/rooms`);
 }
 export function Conversations() {
-  const {
-    setRoomName,
-    setAvatar,
-    idRoom,
-    setIdRoom,
-    setRoomContentVisible,
-  } = useContext(RoomContext);
+  const { setRoomName, setAvatar, idRoom, setIdRoom, setRoomContentVisible } =
+    useContext(RoomContext);
 
   // const [rooms, setRooms] = useState<[]>([]);
 
   const { rooms, setRooms } = useContext(RoomsContext);
 
-  // const { data,  } = useQuery(["users", rooms, getRooms]);
+  // const { data } = useQuery(["users", rooms, getRooms]);
 
   useEffect(() => {
     getRooms()

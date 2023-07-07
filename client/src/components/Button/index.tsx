@@ -1,6 +1,6 @@
 interface ButtonType {
   color?: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   children: React.ReactNode;
   classNames?: string;
   type?: "button" | "submit" | "reset";
