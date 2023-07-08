@@ -45,7 +45,7 @@ export default function ModalCreateRoom() {
         }),
       })
         .then((data) => data.json())
-        .then((newRoom) => {
+        .then((data) => {
           getRooms()
             .then((data) => data.json())
             .then((roomsFetched) => setRooms(roomsFetched.reverse()));

@@ -11,14 +11,15 @@ export async function signIn(req: Request, res: Response) {
   try {
     // Verificar se o usuário existe no array de usuários
     const user = users.find((u) => u.userName === userName);
+    console.log(user);
     if (!user) {
-      return res.status(404).json({ message: "Usuário não encontrado." });
+      return res.status(404).send({ message: "Usuário não encontrado." });
     }
 
     // Verificar a senha
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: "Credenciais inválidas." });
+      return res.status(401).send({ message: "Credenciais inválidas." });
     }
 
     // Gerar o token de autenticação
@@ -27,6 +28,6 @@ export async function signIn(req: Request, res: Response) {
     res.status(200).json({ token });
   } catch (error) {
     console.error("Erro durante o login:", error);
-    res.status(500).json({ message: "Erro durante o login." });
+    res.status(500).send({ message: "Erro durante o login." });
   }
 }

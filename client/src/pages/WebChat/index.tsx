@@ -8,7 +8,7 @@ import "./styles.css";
 export default function WebChat() {
   return (
     <div className="h-screen w-full">
-      <div className="gridLayout w-full h-screen">
+      <div className="gridChat w-full h-screen">
         <RoomProvider>
           <SidebarConversations />
           <RoomContent />

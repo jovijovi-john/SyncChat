@@ -4,14 +4,8 @@ import { v4 as uuid } from "uuid";
 import { Request, Response } from "express";
 import { generateToken } from "../../services/generateToken";
 
-interface UserType {
-  id: string;
-  userName: string;
-  password: string;
-  connection: string;
-}
-
-const users: UserType[] = []; // Array de usuários
+import { users } from "../../variables/users";
+import { UserType } from "../../types/User";
 
 const createUser = async (req: Request, res: Response) => {
   const { userName, password } = req.body;
@@ -20,7 +14,7 @@ const createUser = async (req: Request, res: Response) => {
     // Verificar se já existe um usuário com o mesmo nome
     const existingUser = users.find((user) => user.userName === userName);
     if (existingUser) {
-      return res.status(400).json({ message: "Usuário já existe." });
+      return res.status(400).send({ message: "Usuário já existe." });
     }
 
     // Gerar um hash da senha
@@ -31,7 +25,6 @@ const createUser = async (req: Request, res: Response) => {
       id: uuid(),
       userName,
       password: hashedPassword,
-      connection: "",
     };
 
     // Adicionar o usuário ao array
@@ -40,10 +33,10 @@ const createUser = async (req: Request, res: Response) => {
     // Gerar o token de autenticação
     const token = generateToken(user);
 
-    return res.status(200).json({ user, token });
+    return res.status(201).json({ user, token });
   } catch (error) {
     console.error("Erro ao criar usuário:", error);
-    return res.status(500).json({ message: "Erro ao criar usuário." });
+    return res.status(500).send({ message: "Erro ao criar usuário." });
   }
 };
 

@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import connection from "../../configs/connection";
-import { Input } from "@chakra-ui/react";
 import Button from "../Button";
+import { setAuthToken } from "../../services/authService";
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [page, setPage] = useState<"login" | "cadastro">("login");
@@ -19,8 +22,8 @@ export default function LoginForm() {
   function handleSubmit(e: any) {
     e.preventDefault();
 
-    if (page === "cadastro") {
-      if (userName.trim() !== "" || password.trim() !== "") {
+    if (userName.trim() !== "" && password.trim() !== "") {
+      if (page === "cadastro") {
         fetch(`${connection.url_api}/users`, {
           method: "POST",
           headers: {
@@ -31,30 +34,61 @@ export default function LoginForm() {
             password: password,
           }),
         })
-          .then((data) => data.json())
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else if (response.status === 400) {
+              throw new Error("Usuário já existe.");
+            } else if (response.status === 500) {
+              throw new Error("Erro ao criar usuário");
+            } else {
+              throw new Error("Erro desconhecido ao criar usuario");
+            }
+          })
+          .then((data) => {
+            console.log("Usuário criado:", data);
+            setAuthToken(data.token);
+            setUserName("");
+            setPassword("");
+
+            navigate("/chat");
+          })
+          .catch((error) => {
+            console.error("Erro ao criar usuário:", error);
+          });
+      } else {
+        fetch(`${connection.url_api}/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userName: userName,
+            password: password,
+          }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else if (response.status === 404) {
+              throw new Error("Usuário não encontrado.");
+            } else if (response.status === 401) {
+              throw new Error("Credenciais inválidas.");
+            } else {
+              throw new Error("Erro durante o login.");
+            }
+          })
           .then((data) => {
             setUserName("");
             setPassword("");
-            console.log(data);
+            setAuthToken(data);
+            navigate("/chat");
+          })
+          .catch((error) => {
+            console.error("Erro durante o login:", error);
+            // Código para lidar com o erro de acordo com a mensagem ou status
           });
       }
-    } else {
-      fetch(`${connection.url_api}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName: userName,
-          password: password,
-        }),
-      })
-        .then((data) => data.json())
-        .then((data) => {
-          console.log(data);
-          setUserName("");
-          setPassword("");
-        });
     }
   }
   return (
