@@ -23,7 +23,7 @@ async function isAuthenticated() {
     })
       .then((response) => {
         if (response.ok) {
-          response.json();
+          return response.json(); // Retorne o resultado da Promise
         } else if (response.status === 401) {
           throw new Error("Token mal formatado ou não fornecido");
         } else {
