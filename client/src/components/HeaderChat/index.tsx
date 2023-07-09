@@ -12,7 +12,7 @@ export function HeaderChat() {
 
   function handleNameUsers() {
     console.log(users);
-    const userNames = Object.entries(users).map((user) => user);
+    const userNames = Object.keys(users).map((key) => users[key].userName);
     return userNames.join(", ");
   }
 

@@ -17,6 +17,7 @@ import { verifyTokenJWT } from "./middlewares/verifyToken";
 import { JwtPayload } from "jsonwebtoken";
 import { getUser, getUserNameAndColor } from "./variables/users";
 import { usersConnections } from "./variables/usersConnections";
+import { UserType } from "./types/User";
 
 const app = express();
 
@@ -79,15 +80,13 @@ io.on("connection", async (socket) => {
 
         const date = new Date();
 
-        const userNameAndColor = getUserNameAndColor(idUserDecoded.userId);
+        const user = getUser(idUserDecoded.userId) as UserType;
         // Adicionando à mensagem a informação de quando ela foi enviada
         const messageResponse: MessageResponseType = {
           content: message.content,
+          user: user,
           date: formatTime(date),
-          userId: idUserDecoded.userId,
           roomId: message.roomId,
-          userName: userNameAndColor.userName!,
-          color: userNameAndColor.color!,
         };
 
         // Encontrando a sala para adicionar a mensagem nela

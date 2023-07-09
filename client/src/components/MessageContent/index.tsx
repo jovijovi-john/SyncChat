@@ -7,16 +7,14 @@ type MessageContentProps = {
 };
 
 export function MessageContent({ message }: MessageContentProps) {
-  
-
   return (
     <div className="message-content overflow-hidden w-full">
       <div className="message-header flex gap-x-2 items-center">
         <div
           className={`message-username font-bold  hover:cursor-pointer`}
-          style={{color: message.color}}
+          style={{ color: message.user.color }}
         >
-          {message.userName}
+          {message.user.userName}
         </div>
 
         <div className="message-date text-sm text-gray-400">

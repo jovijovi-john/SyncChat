@@ -1,9 +1,9 @@
+import { UserType } from "./User";
+
 export type MessageResponseType = {
   file?: string | null;
   content: string;
   date: string;
-  color?: string;
-  userId: string;
+  user: UserType;
   roomId: string;
-  userName: string;
 };

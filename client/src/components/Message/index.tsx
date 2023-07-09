@@ -15,7 +15,7 @@ export const Message = React.memo(({ message }: MessageProps) => {
     <div className="message-box flex items-center gap-x-4 p-4 pl-8 last:mb-0 hover:transition hover:duration-150 ">
       <div className="image self-start">
         <Stack direction="row" className="hover:cursor-pointer" spacing={4}>
-          <Avatar src={"https://github.com/andre-fil.png"} size={"sm"}>
+          <Avatar src={message.user.avatar} size={"sm"}>
             <AvatarBadge
               boxSize="1.25em"
               bg="green.300"
