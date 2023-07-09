@@ -5,6 +5,7 @@ import { RoomContext } from "../../contexts/RoomContext";
 import ChatSvg from "../../assets/chat_svg.svg";
 import "./styles.css";
 import { getUser } from "../../services/authService";
+import { socketClient } from "../../services/socket";
 
 export function RoomContent() {
   const {
@@ -15,6 +16,7 @@ export function RoomContent() {
     setAvatar,
     setUsers,
     setMessages,
+    roomId,
   } = useContext(RoomContext);
 
   useEffect(() => {
@@ -22,6 +24,8 @@ export function RoomContent() {
       if (event.key === "Escape") {
         // Lógica a ser executada quando a tecla "Esc" for pressionada
         console.log("A tecla Esc foi pressionada!");
+
+        socketClient.emit("leave-room", roomId);
 
         if (roomContentVisible != false) {
           setRoomContentVisible(false);

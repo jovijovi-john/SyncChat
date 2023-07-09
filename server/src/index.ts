@@ -114,6 +114,12 @@ io.on("connection", async (socket) => {
     }
   );
 
+  socket.on("leave-room", (data) => {
+    console.log(socket.rooms);
+    console.log(socket.leave(data));
+    console.log(socket.rooms);
+  });
+
   socket.on("disconnect", () => {
     console.log(`user disconnected: ${socket.id}`);
     delete usersConnections[socket.id];

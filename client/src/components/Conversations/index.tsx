@@ -35,8 +35,14 @@ export function Conversations() {
     setRoomName(room.roomName);
     setAvatar(room.avatar);
     setRoomContentVisible(true);
+
+    // Se o usuário já estiver em uma sala, retire-o dessa sala antes de colocar na próxima
+    if (roomId) {
+      socketClient.emit("leave-room", roomId);
+    }
     setRoomId(room.id);
 
+    // Selecionando a sala escolhida
     socketClient.emit("select_room", { roomId: room.id, userId: user.id });
     console.log(room.id);
   }
