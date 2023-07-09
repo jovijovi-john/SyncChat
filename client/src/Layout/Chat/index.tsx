@@ -13,7 +13,7 @@ interface ChatProps {
 }
 
 export default function Chat({ avatar, nameRoom }: ChatProps) {
-  const { setAvatar, setRoomName, setIdRoom } = useContext(RoomContext);
+  const { setAvatar, setRoomName } = useContext(RoomContext);
 
   useEffect(() => {
     setAvatar(avatar);

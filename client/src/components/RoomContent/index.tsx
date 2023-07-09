@@ -26,9 +26,8 @@ export function RoomContent() {
         if (roomContentVisible != false) {
           setRoomContentVisible(false);
 
-          setIdRoom("");
           setAvatar("");
-          setUsers([]);
+          setUsers({});
           setMessages([]);
         }
       }
