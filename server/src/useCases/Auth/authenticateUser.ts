@@ -5,11 +5,13 @@ import { UserType } from "../../types/User";
 export function authenticateUser(req: Request, res: Response) {
   const idUser = req.userId;
 
-  const user = users.find((u: UserType) => u.id === idUser);
+  const user = users.find((u: UserType) => u.id === idUser) as UserType;
 
   if (!user) {
     return res.status(404).json({ message: "Usuário não encontrado." });
   } else {
-    return res.status(200).json({ user });
+    return res
+      .status(200)
+      .json({ id: user.id, userName: user.userName, avatar: user.avatar });
   }
 }

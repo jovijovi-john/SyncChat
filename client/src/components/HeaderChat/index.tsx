@@ -2,26 +2,38 @@ import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 import { useContext } from "react";
 import { RoomContext } from "../../contexts/RoomContext";
 
+import { BiArrowBack } from "react-icons/bi";
+
 import "./styles.css";
 
 export function HeaderChat() {
-  const { avatar, users, roomName } = useContext(RoomContext);
+  const { avatar, users, roomName, setRoomContentVisible } =
+    useContext(RoomContext);
 
   function handleNameUsers() {
-    const userNames = users.map((user) => user);
+    console.log(users);
+    const userNames = Object.entries(users).map((user) => user);
     return userNames.join(", ");
   }
 
   return (
-    <BoxAvatarLeftContentRight
-      avatar={avatar}
-      size={"md"}
-      classNameBox="headerRoom sticky z-20"
-    >
-      <div className="flex flex-col">
-        <span className="font-bold text-zinc-200">{roomName}</span>
-        <small className="text-zinc-400">{handleNameUsers()}</small>
-      </div>
-    </BoxAvatarLeftContentRight>
+    <div className="flex w-full">
+      <button
+        onClick={() => setRoomContentVisible(false)}
+        className="hidden max-md:flex max-md:items-center mx-4"
+      >
+        <BiArrowBack color={"#999999"} size={25} />
+      </button>
+      <BoxAvatarLeftContentRight
+        avatar={avatar}
+        size={"md"}
+        classNameBox="headerRoom max-md:ml-[-25px] sticky z-20"
+      >
+        <div className="flex flex-col">
+          <span className="font-bold text-zinc-200">{roomName}</span>
+          <small className="text-zinc-400">{handleNameUsers()}</small>
+        </div>
+      </BoxAvatarLeftContentRight>
+    </div>
   );
 }

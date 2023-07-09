@@ -3,4 +3,5 @@ export type UserType = {
   userName: string;
   avatar?: string;
   password: string;
+  color?: string;
 };

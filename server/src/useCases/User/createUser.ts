@@ -8,7 +8,7 @@ import { users } from "../../variables/users";
 import { UserType } from "../../types/User";
 
 const createUser = async (req: Request, res: Response) => {
-  const { userName, password } = req.body;
+  const { userName, password, color, avatar } = req.body;
 
   try {
     // Verificar se já existe um usuário com o mesmo nome
@@ -24,7 +24,9 @@ const createUser = async (req: Request, res: Response) => {
     const user: UserType = {
       id: uuid(),
       userName,
+      avatar,
       password: hashedPassword,
+      color: color,
     };
 
     // Adicionar o usuário ao array
@@ -33,7 +35,14 @@ const createUser = async (req: Request, res: Response) => {
     // Gerar o token de autenticação
     const token = generateToken(user);
 
-    return res.status(201).json({ user, token });
+    return res.status(201).json({
+      user: {
+        id: user.id,
+        userName: user.userName,
+        avatar: user.avatar,
+      },
+      token,
+    });
   } catch (error) {
     console.error("Erro ao criar usuário:", error);
     return res.status(500).send({ message: "Erro ao criar usuário." });

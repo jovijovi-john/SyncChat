@@ -8,13 +8,15 @@ import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
 
 import { RoomsContext } from "../../contexts/RoomsContext";
 import connection from "../../configs/connection";
+import { UserContext } from "../../contexts/UserContext";
 
 export async function getRooms() {
   // get rooms
   return await fetch(`${connection.url_api}/rooms`);
 }
 export function Conversations() {
-  const { setRoomName, setAvatar, idRoom, setIdRoom, setRoomContentVisible } =
+  const { user } = useContext(UserContext);
+  const { setRoomName, setAvatar, roomId, setRoomId, setRoomContentVisible } =
     useContext(RoomContext);
 
   // const [rooms, setRooms] = useState<[]>([]);
@@ -33,9 +35,9 @@ export function Conversations() {
     setRoomName(room.roomName);
     setAvatar(room.avatar);
     setRoomContentVisible(true);
-    setIdRoom(room.id);
+    setRoomId(room.id);
 
-    socketClient.emit("select_room", room.id);
+    socketClient.emit("select_room", { roomId: room.id, userId: user.id });
     console.log(room.id);
   }
 
@@ -46,7 +48,7 @@ export function Conversations() {
           key={index}
           avatar={room.avatar}
           classNamesAvatar={`pl-3 ${
-            room.id === idRoom ? "border-l-2 border-[#e94f5c]" : ""
+            room.id === roomId ? "border-l-2 border-[#e94f5c]" : ""
           }`}
           cursor="pointer"
           onClick={() => handleClick(room)}

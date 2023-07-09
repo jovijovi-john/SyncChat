@@ -6,28 +6,36 @@ import { socketClient } from "../../services/socket";
 import Button from "../Button";
 import "./styles.css";
 import { RoomContext } from "../../contexts/RoomContext";
+import { MessageType } from "../../types/Message";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function MessageForm(
   props: React.FormHTMLAttributes<HTMLFormElement>
 ) {
-  const [message, setMessage] = useState<string>("");
-  const { idRoom } = useContext(RoomContext);
+  const { roomId } = useContext(RoomContext);
+  const { user, token } = useContext(UserContext);
+
+  const [content, setContent] = useState<string>("");
+  const [message, setMessage] = useState<MessageType>();
 
   const messageRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const sendMessage = () => {
-    const cleanMessage: string = message.trim();
-
+    const cleanMessage: string = content.trim();
     if (cleanMessage.length != 0) {
-      const messageObj = {
+      const messageObj: MessageType = {
         content: cleanMessage,
-        idRoom: idRoom,
+        roomId: roomId,
+        userId: user.id,
       };
 
-      socketClient.emit("message", messageObj);
+      console.log(messageObj);
 
-      setMessage("");
+      setMessage(messageObj);
+
+      socketClient.emit("message", token, messageObj);
+      setContent("");
     }
   };
 
@@ -44,7 +52,7 @@ export default function MessageForm(
       // se a div já foi renderizada, ou seja, se já existe
       if (messageRef.current) {
         const newContent = messageRef.current.textContent || "";
-        setMessage(newContent);
+        setContent(newContent);
       }
     }
   };
@@ -72,17 +80,17 @@ export default function MessageForm(
     // Vai ser necessário fazer isso para limpar o input.
     if (messageRef.current) {
       // se a div já foi renderizada, ou seja, se já existe
-      messageRef.current.textContent = message;
+      messageRef.current.textContent = content;
     }
-  }, [message]);
+  }, [content]);
 
   return (
     <form {...props} onSubmit={handleSubmit}>
-      <Button classNames="flex justify-center items-center p-2 w-10 max-w-xl">
+      <Button classNames="hidden sm:flex justify-center items-center p-2 w-10 max-w-xl">
         <BsEmojiSmile color="#F4F4F5" size={25} />
       </Button>
 
-      <Button classNames="flex justify-center items-center p-2 w-10 max-w-xl">
+      <Button classNames=" sm:flex justify-center items-center p-2 w-10 max-w-xl">
         <GoPaperclip color="#F4F4F5" size={25} />
       </Button>
 
@@ -99,7 +107,7 @@ export default function MessageForm(
 
       <Button
         type={"submit"}
-        classNames="flex justify-center items-center p-2 w-16 max-w-xl"
+        classNames="flex justify-center items-center p-2 w-10 sm:w-16 max-w-xl"
       >
         <AiOutlineSend color="#F4F4F5" size={25} />
       </Button>

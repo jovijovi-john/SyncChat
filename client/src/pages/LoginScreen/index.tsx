@@ -6,13 +6,11 @@ import "./styles.css";
 // import { removeAuthToken, removeUser } from "../../services/authService";
 
 export default function LoginScreen() {
-
-
   return (
     <div className="h-screen w-full">
       <div className="flex flex-col items-center justify-center gridLayout lg:grid w-full h-screen bg-zinc-900">
         <LoginForm />
-        <div className="hidden bgImage lg:flex h-full items-center justify-center border-b-4 border-[#e94f5c]">
+        <div className="hidden lg:flex h-full items-center justify-center border-b-4 border-[#e94f5c]">
           <img className="" src={ChatSvg} alt="" />
         </div>
       </div>

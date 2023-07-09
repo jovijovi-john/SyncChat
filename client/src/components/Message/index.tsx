@@ -20,7 +20,7 @@ export const Message = React.memo(({ message }: MessageProps) => {
               boxSize="1.25em"
               bg="green.300"
               borderColor="#282828"
-              className="md:invisible md:hidden"
+              className="2xl:invisible md:hidden"
             />
           </Avatar>
         </Stack>

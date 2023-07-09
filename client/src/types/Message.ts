@@ -1,4 +1,6 @@
 export type MessageType = {
-  file: string | null;
+  file?: string | null;
   content: string;
+  roomId: string;
+  userId: string;
 };

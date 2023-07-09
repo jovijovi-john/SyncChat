@@ -1,7 +1,5 @@
 import "./index.css";
 
-import "./services/socket";
-
 import WebChat from "./pages/WebChat";
 import LoginScreen from "./pages/LoginScreen";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { BoxAvatarLeftContentRight } from "../BoxAvatarLeftContentRight";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { RoomContext } from "../../contexts/RoomContext";
 
 import "./styles.css";
@@ -7,41 +7,31 @@ import "./styles.css";
 export function RoomStatus() {
   const { users } = useContext(RoomContext);
 
+  useEffect(() => {
+    console.log("dentro de RoomStatus");
+    console.log(Object.entries(users));
+  }, []);
+
   return (
-    <aside className="sticky top-0 right-0 h-full overflow-y-scroll  border-l border-zinc-600 bg-zinc-700 pt-12 text-white flex flex-col">
+    <aside className="max-2xl:hidden sticky top-0 right-0 h-full overflow-y-scroll border-l border-zinc-600 bg-zinc-700 pt-12 text-white flex flex-col">
       <div className="users-online">
         <span className="uppercase ml-3 text-xs text-zinc-400 font-medium tracking-wide">
-          online - {users?.length}
+          online - {Object.entries(users).length}
         </span>
         <ul className="">
-          {users?.map((user: any, index: number) => (
-            <li key={index}>
+          {Object.keys(users).map((key) => (
+            <li key={key}>
               {
                 <BoxAvatarLeftContentRight
                   cursor={"pointer"}
-                  avatar={"https://github.com/jovijovi-john.png"}
+                  avatar={users[key].avatar!}
                 >
-                  <div className="text-base">{user}</div>
-                </BoxAvatarLeftContentRight>
-              }
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="users-offline mt-6">
-        <span className="uppercase ml-3 text-xs text-zinc-400 font-medium tracking-wide">
-          offline - {users?.length}
-        </span>
-        <ul className="opacity-20">
-          {users?.map((user: any, index: number) => (
-            <li key={index}>
-              {
-                <BoxAvatarLeftContentRight
-                  cursor={"pointer"}
-                  avatar={"https://github.com/jovijovi-john.png"}
-                >
-                  <div className="text-md">{user}</div>
+                  <div
+                    className="text-base"
+                    style={{ color: users[key].color }}
+                  >
+                    {users[key].userName}
+                  </div>
                 </BoxAvatarLeftContentRight>
               }
             </li>

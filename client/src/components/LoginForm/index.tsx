@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import connection from "../../configs/connection";
 import Button from "../Button";
 import { setAuthToken } from "../../services/authService";
+import { handleRandomColor } from "../../utils/generateColor";
 
 export default function LoginForm() {
   const navigate = useNavigate();
 
   const [userName, setUserName] = useState<string>("");
+  const [avatar, setAvatar] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const [page, setPage] = useState<"login" | "cadastro">("login");
 
   function handlePage() {
@@ -31,7 +34,9 @@ export default function LoginForm() {
           },
           body: JSON.stringify({
             userName: userName,
+            avatar: avatar,
             password: password,
+            color: handleRandomColor(),
           }),
         })
           .then((response) => {
@@ -79,9 +84,9 @@ export default function LoginForm() {
             }
           })
           .then((data) => {
+            setAuthToken(data.token);
             setUserName("");
             setPassword("");
-            setAuthToken(data);
             navigate("/chat");
           })
           .catch((error) => {
@@ -116,6 +121,26 @@ export default function LoginForm() {
             }
             color={"#fff"}
           />
+
+          {page === "cadastro" && (
+            <>
+              <label htmlFor="userName" className="text-zinc-400 text-lg mt-2">
+                Avatar
+              </label>
+              <input
+                type="text"
+                name="userName"
+                placeholder="Informe o link da sua imagem de perfil"
+                value={avatar}
+                onChange={(e) => setAvatar(e.target.value)}
+                className={
+                  "bg-zinc-700 caret-[#e94f5c] border-none p-4 rounded-lg w-96 text-zinc-100 outline-none focus:outline-2 focus:outline-[#e94f5c]"
+                }
+                color={"#fff"}
+              />
+            </>
+          )}
+
           <label htmlFor="password" className="text-zinc-400 text-lg mt-2">
             Password
           </label>

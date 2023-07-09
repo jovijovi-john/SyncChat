@@ -20,11 +20,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     // precisa do token e da chave secreta no verify, o decoded guardará o id do usuario caso de certo.
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET_KEY!
-    ) as JwtPayload & { userId: string };
-
+    const decoded = verifyTokenJWT(token) as JwtPayload & { userId: string };
     req.userId = decoded.userId; // Armazena o ID do usuário no objeto de solicitação para uso posterior
     next();
   } catch (error) {
@@ -32,4 +28,10 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default verifyToken;
+function verifyTokenJWT(token: string) {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY!);
+
+  return decoded;
+}
+
+export { verifyToken, verifyTokenJWT };

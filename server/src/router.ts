@@ -7,7 +7,7 @@ import { getAllUsers } from "./useCases/User/getAllUsers";
 import { authenticateUser } from "./useCases/Auth/authenticateUser";
 
 import { signIn } from "./useCases/Login/signIn";
-import verifyToken from "./middlewares/verifyToken";
+import { verifyToken } from "./middlewares/verifyToken";
 
 export const router = Router();
 

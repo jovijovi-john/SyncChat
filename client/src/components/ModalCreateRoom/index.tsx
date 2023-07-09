@@ -21,8 +21,10 @@ import Button from "../Button";
 import { useContext } from "react";
 
 import connection from "../../configs/connection";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function ModalCreateRoom() {
+  const { token } = useContext(UserContext);
   const { setRooms } = useContext(RoomsContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -38,6 +40,7 @@ export default function ModalCreateRoom() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization: token,
         },
         body: JSON.stringify({
           roomName: roomName,
