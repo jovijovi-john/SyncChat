@@ -17,7 +17,7 @@ export function HeaderChat() {
   }
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full border-b border-zinc-700">
       <button
         onClick={() => setRoomContentVisible(false)}
         className="hidden max-md:flex max-md:items-center mx-4"
