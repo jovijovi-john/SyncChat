@@ -2,7 +2,7 @@
 
 Este é um projeto de uma aplicação web de chat em tempo real, desenvolvido utilizando Vite, React, Typescript, Tailwind CSS, Chakra UI no frontend e Node.js, Typescript, Express e Socket.IO no backend.
 
-##Funcionalidades
+## Funcionalidades
 
 * Chat em Tempo Real: Os usuários podem se conectar a salas de chat e enviar e receber mensagens em tempo real.
 
